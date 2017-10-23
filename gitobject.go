@@ -8,20 +8,20 @@ type GitObject struct {
 	path           string
 }
 
-// GitObjects Slice of GitObject
-type GitObjects []GitObject
+// BySizeDesc implements sort.Interface for []GitObject based on size
+type BySizeDesc []GitObject
 
 // Len implementation for sorting
-func (objects GitObjects) Len() int {
+func (objects BySizeDesc) Len() int {
 	return len(objects)
 }
 
 // Swap implementation for sorting
-func (objects GitObjects) Swap(i, j int) {
+func (objects BySizeDesc) Swap(i, j int) {
 	objects[i], objects[j] = objects[j], objects[i]
 }
 
 // Less implementation for sorting
-func (objects GitObjects) Less(i, j int) bool {
+func (objects BySizeDesc) Less(i, j int) bool {
 	return objects[i].size > objects[j].size
 }

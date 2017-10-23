@@ -6,7 +6,11 @@ import (
 	"github.com/urfave/cli"
 )
 
+var runner Runner
+
 func main() {
+	runner = BashRunner{}
+
 	app := cli.NewApp()
 	app.Name = "gitcleaner"
 	app.Usage = "git housekeeping utility"

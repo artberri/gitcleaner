@@ -5,8 +5,20 @@ go: 1.9.x
 os:
 - linux
 
-before_script:
-- go get -u github.com/kardianos/govendor
-- govendor sync
+install:
+- go get github.com/kardianos/govendor
 
-script: go build
+script:
+- make vendor-sync
+- make test
+- make e2etest
+- make vet
+- GOOS=windows go build
+branches:
+  only:
+  - master
+
+matrix:
+  fast_finish: true
+  allow_failures:
+  - go: tip

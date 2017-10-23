@@ -12,7 +12,7 @@ import (
 
 // List all objects including their size, sort by size
 // Based on https://stackoverflow.com/questions/10622179/how-to-find-identify-large-files-commits-in-git-history
-func getObjects(path string) (GitObjects, *cli.ExitError) {
+func getObjects(path string) ([]GitObject, *cli.ExitError) {
 	var verifyPackErr, revListErr *cli.ExitError
 	var verifyPackScanner, revListScanner *bufio.Scanner
 
@@ -69,8 +69,8 @@ func parseVerifyPack(scanner *bufio.Scanner) (map[string]GitObject, *cli.ExitErr
 }
 
 // Complete a map of objects with filenames
-func parseRevList(scanner *bufio.Scanner, objects map[string]GitObject) (GitObjects, *cli.ExitError) {
-	gitObjects := GitObjects{}
+func parseRevList(scanner *bufio.Scanner, objects map[string]GitObject) ([]GitObject, *cli.ExitError) {
+	gitObjects := []GitObject{}
 
 	for scanner.Scan() {
 		line := strings.Split(scanner.Text(), " ")
@@ -83,13 +83,13 @@ func parseRevList(scanner *bufio.Scanner, objects map[string]GitObject) (GitObje
 		}
 	}
 
-	sort.Sort(gitObjects)
+	sort.Sort(BySizeDesc(gitObjects))
 
 	return gitObjects, nil
 }
 
-func groupObjectsByFile(oldObjects GitObjects) GitObjects {
-	gitObjects := GitObjects{}
+func groupObjectsByFile(oldObjects []GitObject) []GitObject {
+	gitObjects := []GitObject{}
 	objectMap := map[string]GitObject{}
 
 	for _, oldObject := range oldObjects {
@@ -106,7 +106,7 @@ func groupObjectsByFile(oldObjects GitObjects) GitObjects {
 		gitObjects = append(gitObjects, object)
 	}
 
-	sort.Sort(gitObjects)
+	sort.Sort(BySizeDesc(gitObjects))
 
 	return gitObjects
 }

@@ -56,5 +56,5 @@ Option            | Shortname | Description
 Recommended usage:
 
 ```bash
-gitcleaner list -u --hr
+gitcleaner list -u --hr # List files with the heavier history size in human readable format
 ```
