@@ -1,0 +1,12 @@
+language: go
+sudo: false
+go: 1.9.x
+
+os:
+- linux
+
+before_script:
+- go get -u github.com/kardianos/govendor
+- govendor sync
+
+script: go build

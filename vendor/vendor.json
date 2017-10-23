@@ -1,0 +1,25 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "jQ7JB1XsEO3528jVoX9wKM/9wWU=",
+			"path": "github.com/c2h5oh/datasize",
+			"revision": "54516c931ae99c3c74637b9ea2390cf9a6327f26",
+			"revisionTime": "2017-05-19T14:33:21Z"
+		},
+		{
+			"checksumSHA1": "M57Rrfc8Z966p+IBtQ91QOcUtcg=",
+			"path": "github.com/ryanuber/columnize",
+			"revision": "abc90934186a77966e2beeac62ed966aac0561d5",
+			"revisionTime": "2017-07-03T20:58:27Z"
+		},
+		{
+			"checksumSHA1": "cQfZ+JnB/SweDbrGSTVE07/k8Vw=",
+			"path": "github.com/urfave/cli",
+			"revision": "7bc6a0acffa589f415f88aca16cc1de5ffd66f9c",
+			"revisionTime": "2017-10-14T20:27:26Z"
+		}
+	],
+	"rootPath": "github.com/artberri/gitcleaner"
+}
