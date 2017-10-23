@@ -23,7 +23,13 @@ func listCommand(c *cli.Context) error {
 	output := []string{}
 	max := c.Int("lines")
 	hr := c.Bool("humanreadable")
+	unique := c.Bool("unique")
 	count := len(objects)
+
+	if unique {
+		objects = groupObjectsByFile(objects)
+	}
+
 	if max == 0 || count < max {
 		max = count
 	}
@@ -34,7 +40,7 @@ func listCommand(c *cli.Context) error {
 		} else {
 			size = strconv.FormatUint(objects[i].size, 10)
 		}
-		output = append(output, size+" | "+objects[i].path)
+		output = append(output, size+" | "+objects[i].path+" | "+objects[i].sha)
 	}
 
 	result := columnize.SimpleFormat(output)
