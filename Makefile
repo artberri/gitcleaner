@@ -2,6 +2,13 @@ GOFMT_FILES?=$$(find . -name '*.go' | grep -v vendor)
 
 default: test vet
 
+cover-ci:
+	@go tool cover 2>/dev/null; if [ $$? -eq 3 ]; then \
+		go get -u golang.org/x/tools/cmd/cover; \
+	fi
+	@sh -c "'$(CURDIR)/scripts/coverage.sh'"
+	rm profile_tmp.cov
+
 cover:
 	@go tool cover 2>/dev/null; if [ $$? -eq 3 ]; then \
 		go get -u golang.org/x/tools/cmd/cover; \
