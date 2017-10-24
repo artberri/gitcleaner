@@ -1,5 +1,10 @@
 # gitcleaner
 
+[![Build Status](https://travis-ci.org/artberri/gitcleaner.svg?branch=master)](https://travis-ci.org/artberri/gitcleaner)
+[![GoDoc](https://godoc.org/github.com/artberri/gitcleaner?status.svg)](https://godoc.org/github.com/artberri/gitcleaner)
+[![Go Report Card](https://goreportcard.com/badge/artberri/gitcleaner)](https://goreportcard.com/report/artberri/gitcleaner)
+[![Coverage Status](https://coveralls.io/repos/github/artberri/gitcleaner/badge.svg?branch=master)](https://coveralls.io/github/artberri/gitcleaner?branch=master)
+
 `gitcleaner` is a command line tool to ease the cleaning of your Git repository history.
 
 Recommended for:
@@ -19,12 +24,6 @@ gitcleaner [global options] command [command options] [/path/to/your/repo]
 
 If no path argument is given the current path will be used.
 
-```bash
-# List commands
-gitcleaner help
-```
-
-gh help <command>
 ### Available commands
 
 ```bash
