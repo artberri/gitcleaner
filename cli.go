@@ -3,13 +3,17 @@ package main
 import (
 	"os"
 
+	"github.com/artberri/gitcleaner/services"
 	"github.com/urfave/cli"
 )
 
-var runner Runner
-
 func main() {
-	runner = BashRunner{}
+	runner := &services.BashRunner{}
+	exister := &services.FileExister{}
+	git := &services.GitManager{
+		Runner:  *runner,
+		Exister: *exister,
+	}
 
 	app := cli.NewApp()
 	app.Name = "gitcleaner"
@@ -22,7 +26,7 @@ func main() {
 			Usage:     "List heavier file objects in the repository history",
 			ArgsUsage: "[/path/to/your/repo]",
 			Action: func(c *cli.Context) error {
-				return listCommand(c)
+				return listCommand(c, git)
 			},
 			Flags: []cli.Flag{
 				cli.BoolFlag{

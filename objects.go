@@ -7,12 +7,13 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/artberri/gitcleaner/services"
 	"github.com/urfave/cli"
 )
 
 // List all objects including their size, sort by size
 // Based on https://stackoverflow.com/questions/10622179/how-to-find-identify-large-files-commits-in-git-history
-func getObjects(path string) ([]GitObject, *cli.ExitError) {
+func getObjects(path string, git *services.GitManager) ([]GitObject, *cli.ExitError) {
 	var verifyPackErr, revListErr *cli.ExitError
 	var verifyPackScanner, revListScanner *bufio.Scanner
 
@@ -21,12 +22,12 @@ func getObjects(path string) ([]GitObject, *cli.ExitError) {
 	go func() {
 		defer wg.Done()
 
-		verifyPackScanner, verifyPackErr = verifyPack(path)
+		verifyPackScanner, verifyPackErr = git.VerifyPack(path)
 	}()
 	go func() {
 		defer wg.Done()
 
-		revListScanner, revListErr = revList(path)
+		revListScanner, revListErr = git.RevList(path)
 	}()
 	wg.Wait()
 

@@ -6,13 +6,13 @@ cover:
 	@go tool cover 2>/dev/null; if [ $$? -eq 3 ]; then \
 		go get -u golang.org/x/tools/cmd/cover; \
 	fi
-	go test $(TEST) -coverprofile=coverage.out
-	go tool cover -html=coverage.out
-	rm coverage.out
+	@sh -c "'$(CURDIR)/scripts/coverage.sh'"
+	go tool cover -html=profile.cov
+	rm profile_tmp.cov
 
 test: fmtcheck
-	go test -i $(TEST) || exit 1
-	go list $(TEST) | xargs -t -n4 go test $(TESTARGS) -timeout=60s -parallel=4
+	go test -i ./... || exit 1
+	go list ./... | xargs -t -n4 go test $(TESTARGS) -timeout=60s -parallel=4
 
 fmt:
 	gofmt -w $(GOFMT_FILES)

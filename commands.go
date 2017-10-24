@@ -4,20 +4,21 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/artberri/gitcleaner/services"
 	"github.com/c2h5oh/datasize"
 	"github.com/ryanuber/columnize"
 	"github.com/urfave/cli"
 )
 
-func listCommand(c *cli.Context) error {
-	repoPath, notRepoFoundError := getRepoPath(c)
-	if notRepoFoundError != nil {
-		return notRepoFoundError
+func listCommand(c *cli.Context, git *services.GitManager) error {
+	path, errNotRepoFound := git.EnsureRepoPath(c.Args().Get(0))
+	if errNotRepoFound != nil {
+		return errNotRepoFound
 	}
 
-	objects, getObjectsError := getObjects(repoPath)
-	if getObjectsError != nil {
-		return getObjectsError
+	objects, errGettingObjects := getObjects(path, git)
+	if errGettingObjects != nil {
+		return errGettingObjects
 	}
 
 	output := []string{}
