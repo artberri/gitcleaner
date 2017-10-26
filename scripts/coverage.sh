@@ -11,10 +11,11 @@ function die() {
 
 # Initialize profile.cov
 echo "mode: count" > profile.cov
+touch profile_tmp.cov
 
 # Initialize error tracking
 ERROR=""
-PACKAGES=(github.com/artberri/gitcleaner github.com/artberri/gitcleaner/services)
+PACKAGES=(github.com/artberri/gitcleaner/cli github.com/artberri/gitcleaner/columnize github.com/artberri/gitcleaner/datasize github.com/artberri/gitcleaner/domain github.com/artberri/gitcleaner/exec github.com/artberri/gitcleaner/os)
 
 # Test each package and append coverage profile info to profile.cov
 for pkg in ${PACKAGES[@]}; do

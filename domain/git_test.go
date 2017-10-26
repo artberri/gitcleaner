@@ -4,15 +4,13 @@ import (
 	"bufio"
 	"strings"
 	"testing"
-
-	"github.com/urfave/cli"
 )
 
 var cmd string
 
 type TestRunner struct{}
 
-func (r TestRunner) Run(command string) (*bufio.Scanner, *cli.ExitError) {
+func (r TestRunner) Run(command string) (*bufio.Scanner, error) {
 	cmd = command
 	return bufio.NewScanner(strings.NewReader("")), nil
 }
