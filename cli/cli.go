@@ -1,39 +1,29 @@
-// gitcleaner - The Git Housekeeping Tool
-// Copyright (C) 2017  Alberto Varela Sánchez <alberto@berriart.com>
-
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.html>.
-
-package main
+package cli
 
 import (
 	"os"
 
-	"github.com/artberri/gitcleaner/services"
 	"github.com/urfave/cli"
 )
 
-func main() {
-	runner := &services.BashRunner{}
-	exister := &services.FileExister{}
-	git := &services.GitManager{
-		Runner:  *runner,
-		Exister: *exister,
-	}
+// Commands is an struct that contains all app commands
+type Commands struct {
+	List Listcommand
+}
 
+// Listcommand is the interface for the list object command
+type Listcommand interface {
+	Exec(path string, max int, humanReadable bool, unique bool) error
+}
+
+// App is a cli command manager wrapper
+type App struct{}
+
+// Start will start the CLI app
+func (a App) Start(version string, commands Commands) {
 	app := cli.NewApp()
 	app.Name = "gitcleaner"
-	app.Version = "0.0.1"
+	app.Version = version
 	app.Usage = "Git Housekeeping Utility"
 
 	app.Copyright = `
@@ -54,7 +44,11 @@ func main() {
 			Usage:     "List heavier file objects in the repository history",
 			ArgsUsage: "[/path/to/your/repo]",
 			Action: func(c *cli.Context) error {
-				return listCommand(c, git)
+				if err := commands.List.Exec(c.Args().Get(0), c.Int("lines"), c.Bool("humanreadable"), c.Bool("unique")); err != nil {
+					return cli.NewExitError(err.Error(), 1)
+				}
+
+				return nil
 			},
 			Flags: []cli.Flag{
 				cli.BoolFlag{

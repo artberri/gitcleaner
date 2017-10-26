@@ -1,4 +1,4 @@
-package services
+package exec
 
 import (
 	"bufio"
@@ -8,16 +8,11 @@ import (
 	"github.com/urfave/cli"
 )
 
-// Runner is a command runner
-type Runner interface {
-	Run(string) (*bufio.Scanner, *cli.ExitError)
-}
-
 // BashRunner is bash command runner
 type BashRunner struct{}
 
 // Run will execute a bash command
-func (r BashRunner) Run(command string) (*bufio.Scanner, *cli.ExitError) {
+func (r BashRunner) Run(command string) (*bufio.Scanner, error) {
 	cmd := exec.Command("bash", "-c", command)
 	output, err := cmd.CombinedOutput()
 

@@ -14,7 +14,8 @@ Recommended for:
 
 **Disclaimer**:
 
-This is just a training project and these are the first lines I've written in Golang, use it as your own risk. Any help would be appreciated.
+This is just a training project and these are the first lines I've written 
+in Golang, use it as your own risk. Any help would be appreciated.
 
 ## Usage
 
