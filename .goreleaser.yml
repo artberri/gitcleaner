@@ -1,0 +1,29 @@
+builds:
+  - binary: drum-roll
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - 386
+      - amd64
+      - arm
+      - arm64
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - docs
+      - Merge pull request
+      - Merge branch
+      - test
+archive:
+  name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+  replacements:
+    darwin: Darwin
+    linux: Linux
+    windows: Windows
+    386: i386
+    amd64: x86_64
+  format_overrides:
+    - goos: windows
+      format: zip
