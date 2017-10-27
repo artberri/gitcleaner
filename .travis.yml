@@ -1,29 +1,27 @@
 language: go
 sudo: false
 go: 1.9.x
-
 os:
 - linux
-
 install:
 - go get github.com/kardianos/govendor
 - go get github.com/mattn/goveralls
 - go get golang.org/x/tools/cmd/cover
 - go get github.com/goreleaser/goreleaser
-
 script:
 - make vendor-sync
 - make cover-ci
-- $GOPATH/bin/goveralls -service=travis-ci -coverprofile=profile.cov
+- "$GOPATH/bin/goveralls -service=travis-ci -coverprofile=profile.cov"
 - make vet
 - GOOS=windows go build
 - goreleaser
-
 branches:
   only:
   - master
-
 matrix:
   fast_finish: true
   allow_failures:
   - go: tip
+env:
+  global:
+    secure: uM8cfXv1Qnyx3n7jaFrUW3ft16fbv1KHoGgPMiAKW4V2qUsE14Tsq8eEmqfLL0cA7GVbousWhLL+e9OBC7sd6xi5aisQ0W5oN6rVQZEZki3mg03/meymRLUHmTUQ5SNlGdQilkdLaAbT76/CrjC7cUCHCMgJmT0W/JGWb3itO+Glh+M3iH3L7RhdhfA2NF4izL0p9/gkdden0API3e48scViR4PvAulyFnl8br8wVITQUAPIWx2587+bcWrISG20smPmX6vj7t1cP36k3XNAOQDJjSEVjBLKddGEFXtLk03SeiGIJ3ipcpRiJ3ROw52vIZaZ9OyoEq2oeX4oS9v/DBQxPzwZjFKG3mHaWsakmhHK+nfB6YgJk2rq6dg3P/L4Tqz7t9lSv482Y1kH3leYW40nGk2ZDR5F6qk9MtP7NkJBPeKN6ITnqxN9HJfDVCwpeOK05xmpDOue4XfW+Gt/nnishRSezijeOQhavDP1hAL4Mqfx1u77IaEO6SzKGF+GBwKEmdPYEl1Uo8tqcG7wJnXZoGkaPZEazojXa/g8Z7SpAKU+Id8g3xIEQwxhe7tr1vgUEOI39OEU0QdUZmTCQoX807QJUNGjPpKs1sVtRrhJP0+TqeswOHFWnzV5krBxlf2QeuE4AaSlzs3yeVYoWFLhouWpmXmaXiYi2Sgjk7s=
