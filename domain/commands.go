@@ -14,9 +14,9 @@ type ListCommand struct {
 
 // Exec executes the command
 func (lc *ListCommand) Exec(path string, max int, humanReadable bool, unique bool) error {
-	objects, err2 := lc.ObjectManager.Get(path)
-	if err2 != nil {
-		return err2
+	objects, err := lc.ObjectManager.Get(path)
+	if err != nil {
+		return err
 	}
 
 	output := []string{}

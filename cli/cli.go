@@ -35,7 +35,7 @@ func (a App) Start(version string, commands Commands) {
 	the GNU General Public License along with this program.  
 	If not, see <https://www.gnu.org/licenses/gpl-3.0.html>.
 	`
-	app.Authors = []cli.Author{cli.Author{Name: "Alberto Varela Sánchez", Email: "alberto@berriart.com"}}
+	app.Authors = []cli.Author{{Name: "Alberto Varela Sánchez", Email: "alberto@berriart.com"}}
 
 	app.Commands = []cli.Command{
 		{
