@@ -24,7 +24,6 @@ func main() {
 		Git: git,
 	}
 	listCommand := &domain.ListCommand{
-		Git:           git,
 		Converter:     conv,
 		Columnizer:    col,
 		ObjectManager: gom,

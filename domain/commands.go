@@ -7,7 +7,6 @@ import (
 
 // ListCommand implements Command and lists heavier file objects in the repository history
 type ListCommand struct {
-	Git           RepoManager
 	Converter     Converter
 	Columnizer    Columnizer
 	ObjectManager ObjectManager
@@ -15,11 +14,6 @@ type ListCommand struct {
 
 // Exec executes the command
 func (lc *ListCommand) Exec(path string, max int, humanReadable bool, unique bool) error {
-	path, err1 := lc.Git.EnsureRepoPath(path)
-	if err1 != nil {
-		return err1
-	}
-
 	objects, err2 := lc.ObjectManager.Get(path)
 	if err2 != nil {
 		return err2

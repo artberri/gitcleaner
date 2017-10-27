@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-type TestListCommand struct {
+type MockListCommand struct {
 	Path          string
 	Max           int
 	HumanReadable bool
@@ -13,7 +13,7 @@ type TestListCommand struct {
 }
 
 // Exec executes the command
-func (lc *TestListCommand) Exec(path string, max int, humanReadable bool, unique bool) error {
+func (lc *MockListCommand) Exec(path string, max int, humanReadable bool, unique bool) error {
 	lc.Path = path
 	lc.Max = max
 	lc.HumanReadable = humanReadable
@@ -23,7 +23,7 @@ func (lc *TestListCommand) Exec(path string, max int, humanReadable bool, unique
 }
 
 func TestAppExecutesListCommandAndReadsPathAndDefaultValues(t *testing.T) {
-	listCommand := &TestListCommand{}
+	listCommand := &MockListCommand{}
 	commands := Commands{
 		List: listCommand,
 	}
@@ -53,7 +53,7 @@ func TestAppExecutesListCommandAndReadsPathAndDefaultValues(t *testing.T) {
 }
 
 func TestAppExecutesListCommandAndReadsMaximumArg(t *testing.T) {
-	listCommand := &TestListCommand{}
+	listCommand := &MockListCommand{}
 	commands := Commands{
 		List: listCommand,
 	}
@@ -71,7 +71,7 @@ func TestAppExecutesListCommandAndReadsMaximumArg(t *testing.T) {
 }
 
 func TestAppExecutesListCommandAndReadsMaximumLongArg(t *testing.T) {
-	listCommand := &TestListCommand{}
+	listCommand := &MockListCommand{}
 	commands := Commands{
 		List: listCommand,
 	}
@@ -89,7 +89,7 @@ func TestAppExecutesListCommandAndReadsMaximumLongArg(t *testing.T) {
 }
 
 func TestAppExecutesListCommandAndReadsHumanReadableArg(t *testing.T) {
-	listCommand := &TestListCommand{}
+	listCommand := &MockListCommand{}
 	commands := Commands{
 		List: listCommand,
 	}
@@ -107,7 +107,7 @@ func TestAppExecutesListCommandAndReadsHumanReadableArg(t *testing.T) {
 }
 
 func TestAppExecutesListCommandAndReadsHumanReadableLongArg(t *testing.T) {
-	listCommand := &TestListCommand{}
+	listCommand := &MockListCommand{}
 	commands := Commands{
 		List: listCommand,
 	}
@@ -125,7 +125,7 @@ func TestAppExecutesListCommandAndReadsHumanReadableLongArg(t *testing.T) {
 }
 
 func TestAppExecutesListCommandAndReadsUniqueArg(t *testing.T) {
-	listCommand := &TestListCommand{}
+	listCommand := &MockListCommand{}
 	commands := Commands{
 		List: listCommand,
 	}
@@ -143,7 +143,7 @@ func TestAppExecutesListCommandAndReadsUniqueArg(t *testing.T) {
 }
 
 func TestAppExecutesListCommandAndReadsUniqueLongArg(t *testing.T) {
-	listCommand := &TestListCommand{}
+	listCommand := &MockListCommand{}
 	commands := Commands{
 		List: listCommand,
 	}

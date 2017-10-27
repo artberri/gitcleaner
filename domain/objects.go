@@ -43,29 +43,34 @@ type GitObjectManager struct {
 // Get gets all objects including their size and other data, sorted by size
 // Based on https://stackoverflow.com/questions/10622179/how-to-find-identify-large-files-commits-in-git-history
 func (gom *GitObjectManager) Get(path string) ([]GitObject, error) {
-	var verifyPackErr, revListErr error
+	var errVerifyPath, errRevList, errPath error
 	var verifyPackScanner, revListScanner *bufio.Scanner
 	var objects map[string]GitObject
+
+	path, errPath = gom.Git.EnsureRepoPath(path)
+	if errPath != nil {
+		return nil, errPath
+	}
 
 	var wg sync.WaitGroup
 	wg.Add(2)
 	go func() {
 		defer wg.Done()
 
-		verifyPackScanner, verifyPackErr = gom.Git.VerifyPack(path)
+		verifyPackScanner, errVerifyPath = gom.Git.VerifyPack(path)
 	}()
 	go func() {
 		defer wg.Done()
 
-		revListScanner, revListErr = gom.Git.RevList(path)
+		revListScanner, errRevList = gom.Git.RevList(path)
 	}()
 	wg.Wait()
 
-	if verifyPackErr != nil {
-		return nil, errors.New(verifyPackErr.Error())
+	if errVerifyPath != nil {
+		return nil, errors.New(errVerifyPath.Error())
 	}
-	if revListErr != nil {
-		return nil, errors.New(revListErr.Error())
+	if errRevList != nil {
+		return nil, errors.New(errRevList.Error())
 	}
 
 	objects, err := gom.parseVerifyPack(verifyPackScanner)

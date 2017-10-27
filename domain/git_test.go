@@ -1,35 +1,12 @@
 package domain
 
 import (
-	"bufio"
-	"strings"
 	"testing"
 )
 
-var cmd string
-
-type TestRunner struct{}
-
-func (r TestRunner) Run(command string) (*bufio.Scanner, error) {
-	cmd = command
-	return bufio.NewScanner(strings.NewReader("")), nil
-}
-
-type FalseFileExister struct{}
-
-func (r FalseFileExister) Exists(path string) bool {
-	return false
-}
-
-type TrueFileExister struct{}
-
-func (r TrueFileExister) Exists(path string) bool {
-	return true
-}
-
 func TestVerifyPackExecutesProperCommand(t *testing.T) {
-	runner := &TestRunner{}
-	exister := &TrueFileExister{}
+	runner := &MockRunner{}
+	exister := &MockTrueFileExister{}
 	git := &GitManager{
 		Runner:  runner,
 		Exister: exister,
@@ -37,14 +14,14 @@ func TestVerifyPackExecutesProperCommand(t *testing.T) {
 
 	git.VerifyPack("./path/to/repo")
 
-	if cmd != "git verify-pack -v ./path/to/repo/.git/objects/pack/pack-*.idx | egrep \"^\\w+ blob\\W+[0-9]+ [0-9]+ [0-9]+$\"" {
-		t.Fatalf("Error on command: %s", cmd)
+	if runner.Cmd != "git verify-pack -v ./path/to/repo/.git/objects/pack/pack-*.idx | egrep \"^\\w+ blob\\W+[0-9]+ [0-9]+ [0-9]+$\"" {
+		t.Fatalf("Error on command: %s", runner.Cmd)
 	}
 }
 
 func TestRevListExecutesProperCommand(t *testing.T) {
-	runner := &TestRunner{}
-	exister := &TrueFileExister{}
+	runner := &MockRunner{}
+	exister := &MockTrueFileExister{}
 	git := &GitManager{
 		Runner:  runner,
 		Exister: exister,
@@ -52,14 +29,14 @@ func TestRevListExecutesProperCommand(t *testing.T) {
 
 	git.RevList("./path/to/repo")
 
-	if cmd != "git --git-dir=./path/to/repo/.git rev-list --all --objects" {
-		t.Fatalf("Error on command: %s", cmd)
+	if runner.Cmd != "git --git-dir=./path/to/repo/.git rev-list --all --objects" {
+		t.Fatalf("Error on command: %s", runner.Cmd)
 	}
 }
 
 func TestEnsureRepoPathReturnsInputWhenGitPathExists(t *testing.T) {
-	runner := &TestRunner{}
-	exister := &TrueFileExister{}
+	runner := &MockRunner{}
+	exister := &MockTrueFileExister{}
 	git := &GitManager{
 		Runner:  runner,
 		Exister: exister,
@@ -77,8 +54,8 @@ func TestEnsureRepoPathReturnsInputWhenGitPathExists(t *testing.T) {
 }
 
 func TestEnsureRepoPathReturnsDotWhenPathIsAnEmtyString(t *testing.T) {
-	runner := &TestRunner{}
-	exister := &TrueFileExister{}
+	runner := &MockRunner{}
+	exister := &MockTrueFileExister{}
 	git := &GitManager{
 		Runner:  runner,
 		Exister: exister,
@@ -96,8 +73,8 @@ func TestEnsureRepoPathReturnsDotWhenPathIsAnEmtyString(t *testing.T) {
 }
 
 func TestEnsureRepoPathReturnsErrorIfItIsNotAGitRepo(t *testing.T) {
-	runner := &TestRunner{}
-	exister := &FalseFileExister{}
+	runner := &MockRunner{}
+	exister := &MockFalseFileExister{}
 	git := &GitManager{
 		Runner:  runner,
 		Exister: exister,
