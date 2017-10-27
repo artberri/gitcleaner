@@ -13,7 +13,6 @@ script:
 - make cover-ci
 - "$GOPATH/bin/goveralls -service=travis-ci -coverprofile=profile.cov"
 - make vet
-- GOOS=windows go build
 - goreleaser
 branches:
   only:
