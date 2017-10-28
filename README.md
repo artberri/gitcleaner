@@ -58,3 +58,27 @@ Recommended usage:
 ```bash
 gitcleaner list -u --hr # List files with the heavier history size in human readable format
 ```
+
+## And Windows?
+
+There is not support for Windows on CMD now, but you can run it on Windows
+using the Git Bash.
+
+## License
+
+gitcleaner. Git housekeeping utility.
+
+Copyright (C) 2017 Alberto Varela <alberto@berriart.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.

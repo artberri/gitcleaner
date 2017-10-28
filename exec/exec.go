@@ -17,7 +17,7 @@ func (r BashRunner) Run(command string) (*bufio.Scanner, error) {
 	output, err := cmd.CombinedOutput()
 
 	if err != nil {
-		return nil, cli.NewExitError(err.Error(), 1)
+		return nil, cli.NewExitError(string(output), 1)
 	}
 
 	return bufio.NewScanner(strings.NewReader(string(output))), nil

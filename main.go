@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	const Version = "0.0.1"
+	const Version = "0.0.2"
 
 	runner := &exec.BashRunner{}
 	exister := &os.FileExister{}
