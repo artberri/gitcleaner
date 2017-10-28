@@ -76,11 +76,6 @@ Recommended usage:
 gitcleaner list -u --hr # List files with the heavier history size in human readable format
 ```
 
-## And Windows?
-
-There is not support for Windows on CMD now, but you can run it on Windows
-using the Git Bash.
-
 ## License
 
 gitcleaner. Git housekeeping utility.

@@ -11,12 +11,14 @@ install:
 script:
 - make vendor-sync
 - make cover-ci
-- "$GOPATH/bin/goveralls -service=travis-ci -coverprofile=profile.cov"
+- test -n "$TRAVIS_TAG" || "$GOPATH/bin/goveralls -service=travis-ci -coverprofile=profile.cov"
 - make vet
-- goreleaser
+after_success:
+- test -n "$TRAVIS_TAG" && goreleaser
 branches:
   only:
   - master
+  - /^v\d+(\.\d+)+$/
 matrix:
   fast_finish: true
   allow_failures:
