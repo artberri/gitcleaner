@@ -16,6 +16,7 @@ changelog:
       - Merge pull request
       - Merge branch
       - test
+      - nochangelog
 archive:
   name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
   replacements:
