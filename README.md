@@ -14,8 +14,25 @@ Recommended for:
 
 **Disclaimer**:
 
-This is just a training project and these are the first lines I've written 
-in Golang, use it as your own risk. Any help would be appreciated.
+*This is just a training project and these are the first lines I've written
+in Golang, use it as your own risk. Any help would be appreciated.*
+
+## Downloads
+
+[In this link](https://github.com/artberri/gitcleaner/releases) you will find the packages for every supported platform. Please download the proper package for your operating system and architecture. You can also download older versions.
+
+## Installation
+
+To install Gitcleaner, find the [appropriate package](https://github.com/artberri/gitcleaner/releases)
+for your system and download it.
+
+After downloading Gitcleaner, unzip the package. Gitcleaner runs as a single binary named `gitcleaner`. Any other files in the package can be safely removed and Gitcleaner will still function.
+
+The final step is to make sure that the Gitcleaner binary is available on the PATH. See [this page](https://stackoverflow.com/questions/14637979/how-to-permanently-set-path-on-linux) for instructions on setting the PATH on Linux and Mac. [This page](https://stackoverflow.com/questions/1618280/where-can-i-set-path-to-make-exe-on-windows) contains instructions for setting the PATH on Windows.
+
+### Windows
+
+CMD and Powershell are not supported. You need a [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) shell in order to run Gitcleaner. You can download [Git Bash](https://git-scm.com/download/win) or [Cygwin](https://www.cygwin.com/) if you don't have one yet.
 
 ## Usage
 
