@@ -37,7 +37,7 @@ type Converter interface {
 	HumanReadable(size uint64) string
 }
 
-// Columnizer create columnes in plain text
+// Columnizer create columns in plain text
 type Columnizer interface {
 	Columnize(rows []string) string
 }

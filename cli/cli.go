@@ -8,12 +8,18 @@ import (
 
 // Commands is an struct that contains all app commands
 type Commands struct {
-	List Listcommand
+	List   *ListCommand
+	Delete *DeleteCommand
 }
 
-// Listcommand is the interface for the list object command
-type Listcommand interface {
+// ListCommand is the interface for the list objects command
+type ListCommand interface {
 	Exec(path string, max int, humanReadable bool, unique bool) error
+}
+
+// DeleteCommand is the interface for the delete files command
+type DeleteCommand interface {
+	Exec(path string, push bool, unique bool, max int) error
 }
 
 // App is a cli command manager wrapper

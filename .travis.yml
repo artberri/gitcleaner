@@ -1,3 +1,4 @@
+dist: trusty
 language: go
 sudo: false
 go: 1.9.x
@@ -11,7 +12,7 @@ install:
 script:
 - make vendor-sync
 - make cover-ci
-- test -n "$TRAVIS_TAG" || "$GOPATH/bin/goveralls -service=travis-ci -coverprofile=profile.cov"
+- test -n "$TRAVIS_TAG" || $GOPATH/bin/goveralls -service=travis-ci -coverprofile=profile.cov
 - make vet
 after_success:
 - test -n "$TRAVIS_TAG" && goreleaser
